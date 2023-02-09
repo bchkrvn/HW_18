@@ -2,13 +2,27 @@ from dao.movie import MovieDAO
 
 
 class MovieService:
+    """
+    Класс для связи view и dao
+    """
     def __init__(self, dao: MovieDAO):
         self.dao = dao
 
-    def get_all(self):
+    def get_all(self) -> list:
+        """
+        Получить все фильмы из БД
+        :return: list
+        """
         return self.dao.get_all()
 
-    def get_all_filter(self, year, genre_id, director_id):
+    def get_all_filter(self, year: int, genre_id: int, director_id: int) -> list:
+        """
+        Получить фильмы по году, жанру или режиссеру
+        :param year: год выпуска
+        :param genre_id: id жанра
+        :param director_id: id режиссера
+        :return: list
+        """
         if year:
             all_movies = self.dao.get_by_year(int(year))
         elif director_id:
@@ -20,22 +34,26 @@ class MovieService:
 
         return all_movies
 
-    def get_by_year(self, year: int):
-        return self.dao.get_by_year(year)
-
-    def get_by_director(self, d_id):
-        return self.dao.get_by_director(d_id)
-
-    def get_by_genre(self, g_id):
-        return self.dao.get_by_genre(g_id)
-
-    def get_one(self, id_):
+    def get_one(self, id_: int):
+        """
+        Получить фильм по его id
+        :param id_: id фильма
+        :return: объект класса Movie
+        """
         return self.dao.get_one(id_)
 
-    def create(self, data):
+    def create(self, data: dict):
+        """
+        Добавить новый фильм в БД
+        :param data: dict с данными о фильме
+        """
         self.dao.create(data)
 
-    def update(self, data):
+    def update(self, data: dict):
+        """
+        Обновляет данные о фильме в БД
+        :param data: dict с данными о фильме
+        """
         id_ = data.get('id')
         movie = self.dao.get_one(id_)
 
@@ -49,7 +67,11 @@ class MovieService:
 
         self.dao.update(movie)
 
-    def update_partial(self, data):
+    def update_partial(self, data: dict):
+        """
+        Изменяет некоторые данные о фильме в БД
+        :param data: dict с данными о фильме
+        """
         id_ = data.get('id')
         movie = self.dao.get_one(id_)
 
@@ -70,5 +92,10 @@ class MovieService:
 
         self.dao.update(movie)
 
-    def delete(self, id_):
+    def delete(self, id_: int):
+        """
+        Удаляет фильм из БД
+        :param id_: id фильма
+        :return:
+        """
         self.dao.delete(id_)

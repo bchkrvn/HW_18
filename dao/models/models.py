@@ -5,6 +5,9 @@ from setup_db import db
 
 
 class Movie(db.Model):
+    """
+    Таблица фильмов
+    """
     __tablename__ = 'movie'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(255))
@@ -19,12 +22,18 @@ class Movie(db.Model):
 
 
 class Director(db.Model):
+    """
+    Таблица режиссеров
+    """
     __tablename__ = 'director'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
 
 
 class Genre(db.Model):
+    """
+    Таблица жанров
+    """
     __tablename__ = 'genre'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255))
