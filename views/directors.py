@@ -36,7 +36,10 @@ class DirectorViews(Resource):
         :param id_: id режиссера
         """
         director = director_service.get_one(id_)
-        return director_schema.dump(director), 200
+        if director:
+            return director_schema.dump(director), 200
+        else:
+            return '', 404
 
     def put(self, id_):
         """

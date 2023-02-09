@@ -36,7 +36,11 @@ class GenreViews(Resource):
         :param id_: id жанра
         """
         genre = genre_service.get_one(id_)
-        return genre_schema.dump(genre), 200
+
+        if genre:
+            return genre_schema.dump(genre), 200
+        else:
+            return '', 404
 
     def put(self, id_):
         """
